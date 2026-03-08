@@ -808,5 +808,20 @@ Chiudi
 
 </form>
 </dialog>
+<script>
+
+if ('serviceWorker' in navigator) {
+
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(() => {
+      console.log("Service Worker registrato");
+    })
+    .catch(err => {
+      console.log("Errore Service Worker", err);
+    });
+
+}
+
+</script>
 </body>
 </html>
