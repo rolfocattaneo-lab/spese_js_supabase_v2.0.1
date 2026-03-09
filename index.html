@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Gestione Spese db</title>
+  <title>Salva Euro</title>
   <link rel="stylesheet" href="./styles.css" />
   <link rel="manifest" href="./manifest.json" />
   <meta name="theme-color" content="#0f1220" />
@@ -11,13 +11,13 @@
 <body>
   <header class="topbar">
     <div>
-      <h1>Gestione Spese</h1>
-      <div class="muted">V1.5</div>
+      <h1>Salva Euro</h1>
+      <div class="muted">V1.0.2</div>
     </div>
 
     <div class="topbarActions">
       <div class="topbarSelect">
-        <label for="defaultSubjectSelect">Soggetto predefinito</label>
+        <label for="defaultSubjectSelect">Utente Predefinito</label>
         <select id="defaultSubjectSelect"></select>
       </div>
       <!--<span id="connectionBadge" class="pill">Non connesso</span>-->
@@ -50,7 +50,7 @@
           <div class="collapsibleBody" id="bodyNewExpense">
             <div class="row2">
               <div>
-                <label>Soggetto</label>
+                <label>Utente</label>
                 <select id="e_subject"></select>
               </div>
               <div>
@@ -118,7 +118,7 @@
 
             <div class="row2">
               <div>
-                <label>Soggetto</label>
+                <label>Utente</label>
                 <select id="f_subject"></select>
               </div>
               <div>
@@ -169,7 +169,7 @@
               <thead>
                 <tr>
                   <th>Data</th>
-                  <th>Soggetto</th>
+                  <th>Utente</th>
                   <th>Conto</th>
                   <th>Categoria</th>
                   <th>Descrizione</th>
@@ -201,7 +201,7 @@
 
         <div class="row2">
           <div>
-            <label>Soggetto</label>
+            <label>Utente</label>
             <select id="r_subject"></select>
           </div>
           <div>
@@ -309,7 +309,7 @@
 
     <div class="card collapsibleCard mobileOpen" id="cardNewSubject">
       <button class="collapsibleToggle" type="button" data-collapse-target="bodyNewSubject">
-        <span>Nuovo soggetto</span>
+        <span>Nuovo Utente</span>
         <span class="collapseIcon">▾</span>
       </button>
 
@@ -558,7 +558,7 @@
 
         <div class="row2">
           <div>
-            <label>Soggetto</label>
+            <label>Utente</label>
             <select id="rp_subject"></select>
           </div>
           <div>
@@ -597,7 +597,7 @@
 
         <div class="row2">
           <div>
-            <label>Soggetto</label>
+            <label>Utente</label>
             <select id="ai_subject"></select>
           </div>
           <div>
@@ -652,7 +652,7 @@
 
       <div class="row2">
         <div>
-          <label>Soggetto</label>
+          <label>Utente</label>
           <select id="m_subject"></select>
         </div>
         <div>
@@ -703,7 +703,7 @@
 
       <div class="row2">
         <div>
-          <label>Soggetto</label>
+          <label>Utente</label>
           <input id="mr_subject" type="text" readonly />
         </div>
         <div>
@@ -766,7 +766,7 @@
   <dialog id="editSubjectDialog">
 <form method="dialog" class="dialogCard">
 
-<h3>Modifica soggetto</h3>
+<h3>Modifica Utente</h3>
 
 <input id="ms_subject_id" type="hidden">
 
