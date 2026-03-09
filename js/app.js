@@ -1327,13 +1327,15 @@ async function onDeleteRecurring(id) {
 }
 
 function resetExpenseFilters() {
-  const { from, to } = todayRange();
-  $('f_from').value = from;
-  $('f_to').value = to;
+  const today = ymd(new Date());
+
+  $('f_from').value = today;
+  $('f_to').value = today;
   applyDefaultSubjectToFilters();
   $('f_account').value = '';
   $('f_category').value = '';
   $('f_text').value = '';
+
   refreshExpenses().catch(handleError);
 }
 
@@ -1380,17 +1382,31 @@ async function onSaveSubjectChanges() {
   message('Soggetto aggiornato.');
 }
 
+function formatCsvAmount(value) {
+  const num = Number(value || 0);
+  return num.toFixed(2).replace('.', ',');
+}
+
+function formatCsvDate(value) {
+  if (!value) return '';
+
+  const [year, month, day] = String(value).split('-');
+  if (!year || !month || !day) return value;
+
+  return `${day}/${month}/${year}`;
+}
+
 async function onExportExpensesCsv() {
   const rows = await expensesApi.list({});
+
   const normalized = rows.map(x => ({
-    id: x.id,
-    account_id: x.account_id,
-    subject_id: x.subject_id,
-    category_id: x.category_id,
-    description: x.description,
-    amount: x.amount,
-    expense_date: x.expense_date,
-    notes: x.notes || ''
+    "Utente": x.subject_name || '',
+    "Conto": x.account_name || '',
+    "Categoria": x.category_name || '',
+    "Descrizione": x.description || '',
+    "Importo": formatCsvAmount(x.amount),
+    "Data spesa": formatCsvDate(x.expense_date),
+    "Note": x.notes || ''
   }));
 
   downloadText(
@@ -1478,6 +1494,20 @@ function getSelectedLabel(selectId, rows) {
 
 function sumAmounts(rows) {
   return rows.reduce((sum, row) => sum + Number(row.amount || 0), 0);
+}
+
+function formatCsvAmount(value) {
+  const num = Number(value || 0);
+  return num.toFixed(2).replace('.', ',');
+}
+
+function formatCsvDate(value) {
+  if (!value) return '';
+
+  const [year, month, day] = String(value).split('-');
+  if (!year || !month || !day) return value;
+
+  return `${day}/${month}/${year}`;
 }
 
 function shiftYmdByMonths(dateStr, monthsBack) {

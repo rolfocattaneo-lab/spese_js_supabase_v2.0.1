@@ -37,9 +37,38 @@ function parseCsv(text) {
 }
 
 export function exportExpensesCsv(rows) {
-  const lines = [EXPENSE_COLUMNS.join(';')];
-  for (const row of rows) lines.push(EXPENSE_COLUMNS.map(col => escapeCsv(row[col])).join(';'));
-  return lines.join('\n');
+  const headers = [
+    'Utente',
+    'Conto',
+    'Categoria',
+    'Descrizione',
+    'Importo',
+    'Data spesa',
+    'Note'
+  ];
+
+  const escapeCsv = (value) => {
+    const str = String(value ?? '');
+    if (str.includes(';') || str.includes('"') || str.includes('\n')) {
+      return `"${str.replace(/"/g, '""')}"`;
+    }
+    return str;
+  };
+
+  const lines = [
+    headers.join(';'),
+    ...rows.map(row => [
+      escapeCsv(row['Utente']),
+      escapeCsv(row['Conto']),
+      escapeCsv(row['Categoria']),
+      escapeCsv(row['Descrizione']),
+      escapeCsv(row['Importo']),
+      escapeCsv(row['Data spesa']),
+      escapeCsv(row['Note'])
+    ].join(';'))
+  ];
+
+  return '\uFEFF' + lines.join('\n');
 }
 
 export function exportRecurringCsv(rows) {
