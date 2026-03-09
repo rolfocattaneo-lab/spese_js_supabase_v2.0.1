@@ -26,7 +26,7 @@
 
   <nav class="tabsBar">
     <button class="tab active" data-tab="spese">Spese</button>
-    <button class="tab" data-tab="ricorrenze">Ricorrenze</button>
+    <button class="tab" data-tab="ricorrenze">Abbonamenti</button>
     <button class="tab" data-tab="soggetti">Famiglia</button>
     <button class="tab" data-tab="conti">Conti</button>
     <button class="tab" data-tab="categorie">Categorie</button>
@@ -193,7 +193,7 @@
 
     <div class="card collapsibleCard mobileOpen" id="cardNewRecurring">
       <button class="collapsibleToggle" type="button" data-collapse-target="bodyNewRecurring">
-        <span>Nuova ricorrenza</span>
+        <span>Nuovo Abbonamento</span>
         <span class="collapseIcon">▾</span>
       </button>
 
@@ -272,7 +272,7 @@
     <div class="card collapsibleCard mobileOpen" id="cardRecurringList">
 
       <button class="collapsibleToggle" type="button" data-collapse-target="bodyRecurringList">
-        <span>Ricorrenze</span>
+        <span>Abbonamenti</span>
         <span class="collapseIcon">▾</span>
       </button>
 
@@ -506,11 +506,11 @@
       <div class="grid2">
         <div class="card">
           <h2>Export CSV</h2>
-          <p class="muted">Esporta spese e ricorrenze dal database remoto.</p>
+          <p class="muted">Esporta Spese e Abbonamenti dal database remoto.</p>
 
           <div class="actions">
-            <button id="btnExportExpensesCsv" class="primary" type="button">Export spese</button>
-            <button id="btnExportRecurringCsv" class="ghost" type="button">Export ricorrenze</button>
+            <button id="btnExportExpensesCsv" class="primary" type="button">Export Spese</button>
+            <button id="btnExportRecurringCsv" class="ghost" type="button">Export Abbonamenti</button>
           </div>
         </div>
 
@@ -523,7 +523,7 @@
               <label>Tipo</label>
               <select id="importKind">
                 <option value="expenses">Spese</option>
-                <option value="recurring">Ricorrenze</option>
+                <option value="recurring">Abbonamenti</option>
               </select>
             </div>
             <div>
@@ -698,7 +698,7 @@
 
   <dialog id="editRecurringDialog">
     <form method="dialog" class="dialogCard">
-      <h3>Modifica ricorrenza</h3>
+      <h3>Modifica Abbonamenti</h3>
       <input id="mr_recurring_id" type="hidden" />
 
       <div class="row2">
