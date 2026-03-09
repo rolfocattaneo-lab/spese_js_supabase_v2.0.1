@@ -270,6 +270,11 @@ function setDefaultDates() {
   if ($('ai_from')) $('ai_from').value = from;
   if ($('ai_to')) $('ai_to').value = to;
 
+  const now = new Date();
+
+if ($('ex_month')) $('ex_month').value = String(now.getMonth() + 1);
+if ($('ex_year')) $('ex_year').value = String(now.getFullYear());
+
   // NUOVA SPESA
   $('e_date').value = today;
 
@@ -1397,7 +1402,19 @@ function formatCsvDate(value) {
 }
 
 async function onExportExpensesCsv() {
-  const rows = await expensesApi.list({});
+  const month = Number($('ex_month')?.value || 0);
+  const year = Number($('ex_year')?.value || 0);
+
+  if (!month || !year) {
+    throw new Error('Seleziona mese e anno per l’export spese.');
+  }
+
+  const { from, to } = getMonthDateRange(year, month);
+
+  const rows = await expensesApi.list({
+    from,
+    to
+  });
 
   const normalized = rows.map(x => ({
     "Utente": x.subject_name || '',
@@ -1409,8 +1426,10 @@ async function onExportExpensesCsv() {
     "Note": x.notes || ''
   }));
 
+  const mm = String(month).padStart(2, '0');
+
   downloadText(
-    `spese_${ymd(new Date())}.csv`,
+    `spese_${year}-${mm}.csv`,
     exportExpensesCsv(normalized),
     'text/csv;charset=utf-8'
   );
@@ -1496,19 +1515,6 @@ function sumAmounts(rows) {
   return rows.reduce((sum, row) => sum + Number(row.amount || 0), 0);
 }
 
-function formatCsvAmount(value) {
-  const num = Number(value || 0);
-  return num.toFixed(2).replace('.', ',');
-}
-
-function formatCsvDate(value) {
-  if (!value) return '';
-
-  const [year, month, day] = String(value).split('-');
-  if (!year || !month || !day) return value;
-
-  return `${day}/${month}/${year}`;
-}
 
 function shiftYmdByMonths(dateStr, monthsBack) {
   const [y, m, d] = String(dateStr).split('-').map(Number);
@@ -1740,4 +1746,17 @@ async function onPreviewAiReport() {
 function handleError(err) {
   console.error(err);
   message(err?.message || String(err), 'danger');
+}
+
+function getMonthDateRange(year, month) {
+  const y = Number(year);
+  const m = Number(month);
+
+  const fromDate = new Date(y, m - 1, 1);
+  const toDate = new Date(y, m, 0);
+
+  return {
+    from: ymd(fromDate),
+    to: ymd(toDate)
+  };
 }
