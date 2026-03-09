@@ -254,18 +254,26 @@ function applyDefaultAccountToRecurringForm() {
 }
 
 function setDefaultDates() {
+
   const { from, to } = todayRange();
   const today = ymd(new Date());
 
-  $('f_from').value = from;
-  $('f_to').value = to;
+  // FILTRI SPESE → oggi
+  $('f_from').value = today;
+  $('f_to').value = today;
+
+  // REPORT → mese corrente
   $('rp_from').value = from;
   $('rp_to').value = to;
 
+  // AI → mese corrente
   if ($('ai_from')) $('ai_from').value = from;
   if ($('ai_to')) $('ai_to').value = to;
 
+  // NUOVA SPESA
   $('e_date').value = today;
+
+  // RICORRENZA
   $('r_start').value = today;
 }
 
